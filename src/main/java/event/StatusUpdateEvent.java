@@ -1,8 +1,8 @@
 package event;
 
-/**
- * Created by alx on 9/19/16.
- */
+/************************
+ * Status Update Event
+ ************************/
 public class StatusUpdateEvent implements Event, Comparable<Event> {
 	private final String type = "S";
 	private final int sequenceNum;
@@ -10,6 +10,9 @@ public class StatusUpdateEvent implements Event, Comparable<Event> {
 	private final String message;
 
 	public StatusUpdateEvent(String sequenceNum, String fromUser, String message) {
+		if(message == null)
+			throw new NullPointerException();
+
 		try {
 			this.sequenceNum = Integer.parseInt(sequenceNum);
 			this.fromUser = Integer.parseInt(fromUser);

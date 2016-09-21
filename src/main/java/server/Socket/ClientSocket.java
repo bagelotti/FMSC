@@ -7,13 +7,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
 import java.util.HashMap;
-import java.util.HashSet;
 
-/**
- * Created by ... on 9/17/16.
- */
+/*****************************************************
+ * Listens in client port
+ * stores all connections of users to send them events
+ ******************************************************/
 public class ClientSocket implements Runnable{
-
 	private Socket client;
 	private BufferedReader inputReader;
 	private HashMap<Integer, User> connectedUsers;
@@ -25,7 +24,6 @@ public class ClientSocket implements Runnable{
 
 	@Override
 	public void run() {
-
 		try {
 			inputReader = new BufferedReader((new InputStreamReader(client.getInputStream())));
 			String userID = inputReader.readLine();
@@ -35,14 +33,11 @@ public class ClientSocket implements Runnable{
 					user.addConnection(client.getOutputStream());
 					connectedUsers.replace(Integer.valueOf(userID), user);
 				}
-
 				User user = new User(userID, client.getOutputStream());
 				connectedUsers.put(user.getId(), user);
 			}
-
 		} catch (IOException e) {
 			System.out.println("Failure listening in on Client port");
-			e.printStackTrace();
 		}
 	}
 }

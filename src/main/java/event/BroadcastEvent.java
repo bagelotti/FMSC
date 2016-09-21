@@ -1,14 +1,18 @@
 package event;
 
-/**
- * Created by ... on 9/19/16.
- */
+/******************
+ * Broadcast event
+ *******************/
+
 public class BroadcastEvent implements Event, Comparable<Event>{
 	private final String type = "B";
 	private final int sequenceNum;
 	private final String message;
 
 	public BroadcastEvent(String sequenceNum, String message) {
+		if(message == null)
+			throw new NullPointerException();
+
 		try {
 			this.sequenceNum = Integer.parseInt(sequenceNum);
 		} catch(NumberFormatException e) {

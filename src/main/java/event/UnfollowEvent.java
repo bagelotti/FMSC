@@ -1,8 +1,8 @@
 package event;
 
-/**
- * Created by ... on 9/19/16.
- */
+/********************
+ * Unfollow Event
+ ********************/
 public class UnfollowEvent implements Event, Comparable<Event> {
 	private final String type = "U";
 	private final int sequenceNum;
@@ -11,6 +11,9 @@ public class UnfollowEvent implements Event, Comparable<Event> {
 	private final int toUser;
 
 	public UnfollowEvent(String sequenceNum, String fromUser, String toUser, String message) {
+		if(message == null)
+			throw new NullPointerException();
+
 		try {
 			this.sequenceNum = Integer.parseInt(sequenceNum);
 			this.fromUser = Integer.parseInt(fromUser);

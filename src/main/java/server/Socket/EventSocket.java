@@ -9,10 +9,11 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Arrays;
 import java.util.concurrent.PriorityBlockingQueue;
+import java.util.concurrent.atomic.AtomicBoolean;
 
-/**
- * Created by ... on 9/17/16.
- */
+/*******************************
+ * Listens in on Event port
+ *******************************/
 public class EventSocket implements Runnable {
 
 	private final int port = 9090;
@@ -29,6 +30,7 @@ public class EventSocket implements Runnable {
 	public void run() {
 		try {
 			socket = new ServerSocket(port);
+			socket.setSoTimeout(30000);
 			client = socket.accept();
 			inputReader = new BufferedReader((new InputStreamReader(client.getInputStream())));
 			String payload = inputReader.readLine();
@@ -42,8 +44,9 @@ public class EventSocket implements Runnable {
 			}
 
 			} catch (IOException e) {
-				System.out.println("Failure listening in on Event port");
-				e.printStackTrace();
+				terminate(); //test
+			} finally {
+				terminate();
 			}
 
 	}
@@ -73,5 +76,14 @@ public class EventSocket implements Runnable {
 		}
 	}
 
-
+	private void terminate() {
+		try {
+			inputReader.close();
+			client.close();
+			socket.close();
+			queue.put(new ShutdownEvent());
+		}catch (IOException ec ) {
+			ec.printStackTrace();
+		}
+	}
 }

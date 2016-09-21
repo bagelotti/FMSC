@@ -1,8 +1,8 @@
 package event;
 
-/**
- * Created by alx on 9/19/16.
- */
+/************************
+ * Private Message Event
+ ************************/
 public class PrivateMsgEvent implements Event, Comparable<Event> {
 	private final String type = "P";
 	private final int sequenceNum;
@@ -11,6 +11,9 @@ public class PrivateMsgEvent implements Event, Comparable<Event> {
 	private final int toUser;
 
 	public PrivateMsgEvent(String sequenceNum, String fromUser, String toUser, String message) {
+		if(message == null)
+			throw new NullPointerException();
+
 		try {
 			this.sequenceNum = Integer.parseInt(sequenceNum);
 			this.fromUser = Integer.parseInt(fromUser);
@@ -18,6 +21,7 @@ public class PrivateMsgEvent implements Event, Comparable<Event> {
 		} catch(NumberFormatException e) {
 			throw new NumberFormatException();
 		}
+
 		this.message = message;
 	}
 

@@ -1,12 +1,8 @@
 package event;
 
-import User.User;
-
-import java.util.HashMap;
-
-/**
- * Created by ... on 9/19/16.
- */
+/***********************
+ * Follow Event
+ ***********************/
 public class FollowEvent implements Event, Comparable<Event> {
 	private final String type = "F";
 	private final int sequenceNum;
@@ -16,15 +12,18 @@ public class FollowEvent implements Event, Comparable<Event> {
 	private final int toUser;
 
 	public FollowEvent(String sequenceNum, String fromUser, String toUser, String message) {
+		if(message == null)
+			throw new NullPointerException();
+
 		try {
 			this.sequenceNum = Integer.parseInt(sequenceNum);
 			this.fromUser = Integer.parseInt(fromUser);
 			this.toUser = Integer.parseInt(toUser);
-			this.message = message;
 		} catch(NumberFormatException e) {
 			throw new NumberFormatException();
 		}
 
+		this.message = message;
 	}
 
 

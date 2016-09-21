@@ -78,6 +78,16 @@ public class User {
 
 	}
 
-	public void disconnect(){}
+	public void disconnect(){
+		if(outputStream == null){
+			return;
+		}
+
+		try {
+			outputStream.close();
+		} catch (IOException e) {
+			System.out.println("Fail");
+		}
+	}
 
 }
