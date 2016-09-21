@@ -28,14 +28,6 @@ public class FollowEvent implements Event, Comparable<Event> {
 	}
 
 
-	public void processEvent(HashMap<Integer, User> connectedUsers) {
-		User followee = connectedUsers.get(fromUser);
-		User whoToFollow = connectedUsers.get(toUser);
-		followee.followAnotherUser(whoToFollow);
-		whoToFollow.followMe(followee);
-		whoToFollow.notify(message);
-	}
-
 	public int getSequenceNum() {
 		return sequenceNum;
 	}
@@ -43,6 +35,10 @@ public class FollowEvent implements Event, Comparable<Event> {
 	public String getEventType() { return type; }
 
 	public String getMessage() { return message; }
+
+	public int getFromUser() { return fromUser; }
+
+	public int getToUser() { return toUser; }
 
 	@Override
 	public int compareTo(Event o) {

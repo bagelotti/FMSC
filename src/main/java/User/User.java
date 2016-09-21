@@ -11,7 +11,7 @@ import java.util.HashSet;
 public class User {
 	private final int id;
 	private HashSet<User> followers;
-	private HashSet<User> followees;
+	private HashSet<User> usersIFollow;
 	private DataOutputStream outputStream;
 
 	public User(String id, OutputStream outputStream) {
@@ -21,19 +21,47 @@ public class User {
 			throw new NumberFormatException();
 		}
 
-		this.outputStream = new DataOutputStream(outputStream);
+		if(outputStream != null)
+			this.outputStream = new DataOutputStream(outputStream);
+
 		followers = new HashSet<>();
-		followees = new HashSet<>();
+		usersIFollow = new HashSet<>();
+	}
+
+	public User(int id) {
+		this.id = Integer.valueOf(id);
+		this.outputStream = null;
+
+		followers = new HashSet<>();
+		usersIFollow = new HashSet<>();
 	}
 
 	public int getId(){ return id;}
 
 	public void followAnotherUser(User whoToFollow){
-		followees.add(whoToFollow);
+		if(usersIFollow.contains(whoToFollow))
+			return;
+
+		usersIFollow.add(whoToFollow);
 	}
 
 	public void followMe(User followee){
+		if(followers.contains(followee))
+				return;
 		followers.add(followee);
+	}
+
+	public void unfollowMe(User unfollower) {
+		if(followers.contains(unfollower))
+			followers.remove(unfollower);
+	}
+
+	public HashSet<User> getFollowers() {
+		return followers;
+	}
+
+	public void addConnection(OutputStream outputStream) {
+		this.outputStream = new DataOutputStream(outputStream);
 	}
 
 	public void notify(String message){

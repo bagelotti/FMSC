@@ -36,7 +36,7 @@ public class EventSocket implements Runnable {
 			while(payload != null) {
 				String[] content = payload.split("\\|");
 				//parse payload
-				Event event = parsePayloadToEvent(content);
+				Event event = parsePayloadToEvent(content, payload);
 				queue.put(event);
 				payload = inputReader.readLine();
 			}
@@ -49,25 +49,25 @@ public class EventSocket implements Runnable {
 	}
 
 
-	private Event parsePayloadToEvent(String[] payload) {
+	private Event parsePayloadToEvent(String[] payload, String message) {
 		if(payload == null || payload.length == 0)
 			throw new IllegalArgumentException("empty payload");
 
 		switch(payload[1]) {
 			case "F":
-				return new FollowEvent(payload[0],payload[2],payload[3]);
+				return new FollowEvent(payload[0],payload[2],payload[3], message);
 
 			case "U":
-				return new UnfollowEvent(payload[0],payload[2],payload[3]);
+				return new UnfollowEvent(payload[0],payload[2],payload[3], message);
 
 			case "B":
-				return new BroadcastEvent(payload[0]);
+				return new BroadcastEvent(payload[0], message);
 
 			case "P":
-				return new PrivateMsgEvent(payload[0],payload[2],payload[3]);
+				return new PrivateMsgEvent(payload[0],payload[2],payload[3], message);
 
 			case "S":
-				return new StatusUpdateEvent(payload[0],payload[2]);
+				return new StatusUpdateEvent(payload[0],payload[2], message);
 			default:
 				throw new IllegalArgumentException("invalid event type");
 		}

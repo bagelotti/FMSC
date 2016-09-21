@@ -31,6 +31,10 @@ public class UnfollowEvent implements Event, Comparable<Event> {
 
 	public String getMessage() { return message; }
 
+	public int getFromUser() { return fromUser; }
+
+	public int getToUser() { return toUser; }
+
 	@Override
 	public int compareTo(Event o) {
 		return Integer.compare(this.getSequenceNum(), o.getSequenceNum());

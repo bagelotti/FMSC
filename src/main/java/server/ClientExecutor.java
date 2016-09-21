@@ -22,7 +22,7 @@ public class ClientExecutor {
 	private HashMap<Integer, User> connectedUsers;
 
 	public ClientExecutor(HashMap<Integer, User> connectedUsers) {
-		this.executorService = Executors.newSingleThreadExecutor();
+		this.executorService = Executors.newFixedThreadPool(4);
 		this.connectedUsers = connectedUsers;
 	}
 

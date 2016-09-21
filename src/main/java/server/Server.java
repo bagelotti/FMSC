@@ -20,7 +20,7 @@ public class Server {
 	public Server() {
 		this.eventQueue = new PriorityBlockingQueue<>();
 		this.usersConnected = new HashMap<>();
-		this.eventExecutor = new EventExecutor(eventQueue);
+		this.eventExecutor = new EventExecutor(eventQueue, usersConnected);
 		this.clientExecutor = new ClientExecutor(usersConnected);
 
 	}

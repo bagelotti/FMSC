@@ -29,8 +29,16 @@ public class ClientSocket implements Runnable{
 		try {
 			inputReader = new BufferedReader((new InputStreamReader(client.getInputStream())));
 			String userID = inputReader.readLine();
-			User user = new User(userID, client.getOutputStream());
-			connectedUsers.put(user.getId(), user);
+			synchronized (connectedUsers){
+				if(connectedUsers.containsKey(Integer.valueOf(userID))) {
+					User user = connectedUsers.get(Integer.valueOf(userID));
+					user.addConnection(client.getOutputStream());
+					connectedUsers.replace(Integer.valueOf(userID), user);
+				}
+
+				User user = new User(userID, client.getOutputStream());
+				connectedUsers.put(user.getId(), user);
+			}
 
 		} catch (IOException e) {
 			System.out.println("Failure listening in on Client port");

@@ -29,6 +29,9 @@ public class StatusUpdateEvent implements Event, Comparable<Event> {
 
 	public String getMessage() { return message; }
 
+	public int getFromUser() { return fromUser; }
+
+
 	@Override
 	public int compareTo(Event o) {
 		return Integer.compare(this.getSequenceNum(), o.getSequenceNum());
