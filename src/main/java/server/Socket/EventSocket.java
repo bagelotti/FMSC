@@ -21,11 +21,18 @@ public class EventSocket implements Runnable {
 	private Socket client;
 	private BufferedReader inputReader;
 	private PriorityBlockingQueue<Event> queue;
-
 	public EventSocket(PriorityBlockingQueue<Event> queue) {
 		this.queue = queue;
 	}
 
+
+	/***********************************************
+	 * - takes in stream from event port
+	 * - parses each line into a new event
+	 * - enqueue's into priority queue
+	 * - priority is based on sequence num.
+	 *     Smaller sequence numbers get pushed up the queue
+	 ***********************************************/
 	@Override
 	public void run() {
 		try {
@@ -43,15 +50,20 @@ public class EventSocket implements Runnable {
 				payload = inputReader.readLine();
 			}
 
-			} catch (IOException e) {
-				terminate(); //test
-			} finally {
+		} catch (IOException e) {
+				// just terminate
+		} finally {
 				terminate();
-			}
+		}
 
 	}
 
-
+	/*************************************************
+	 * Parses incoming payload string into an event
+	 * @param payload - Incoming string array parsed from request
+	 * @param message - original message from request
+	 * @return - Event object to enqueue
+	 **************************************************/
 	private Event parsePayloadToEvent(String[] payload, String message) {
 		if(payload == null || payload.length == 0)
 			throw new IllegalArgumentException("empty payload");
@@ -76,6 +88,10 @@ public class EventSocket implements Runnable {
 		}
 	}
 
+	/**********************************************************
+	 * Safely shutsdown our sockets, and
+	 * adds the terminate event into queue (poison pill pattern)
+	 **********************************************************/
 	private void terminate() {
 		try {
 			inputReader.close();

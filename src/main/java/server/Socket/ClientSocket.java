@@ -22,6 +22,13 @@ public class ClientSocket implements Runnable{
 		this.connectedUsers = connectedUsers;
 	}
 
+	/*****************************************************************
+	 * adds users into our connected users hash
+	 * as they're coming in
+	 * - if a user is already in the hash, then
+	 *	he was an offline user ( a user that had an event related to him, but was offline i.e followEvent)
+	 * 	and we add the outputstream to the user, to make them online
+	 *****************************************************************/
 	@Override
 	public void run() {
 		try {
@@ -33,9 +40,12 @@ public class ClientSocket implements Runnable{
 					user.addConnection(client.getOutputStream());
 					connectedUsers.replace(Integer.valueOf(userID), user);
 				}
-				User user = new User(userID, client.getOutputStream());
-				connectedUsers.put(user.getId(), user);
+				else {
+					User user = new User(userID, client.getOutputStream());
+					connectedUsers.put(user.getId(), user);
+				}
 			}
+
 		} catch (IOException e) {
 			System.out.println("Failure listening in on Client port");
 		}
