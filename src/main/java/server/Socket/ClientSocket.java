@@ -17,7 +17,11 @@ public class ClientSocket implements Runnable{
 	private BufferedReader inputReader;
 	private HashMap<Integer, User> connectedUsers;
 
+
 	public ClientSocket(Socket client, HashMap<Integer, User> connectedUsers) {
+		if(client == null || connectedUsers == null)
+			throw new IllegalArgumentException("invalid parameter at client socket");
+
 		this.client = client;
 		this.connectedUsers = connectedUsers;
 	}
@@ -47,7 +51,13 @@ public class ClientSocket implements Runnable{
 			}
 
 		} catch (IOException e) {
-			System.out.println("Failure listening in on Client port");
+		} finally {
+			if(inputReader != null)
+				try {
+					inputReader.close();
+				} catch (IOException e1) {
+
+				}
 		}
 	}
 }

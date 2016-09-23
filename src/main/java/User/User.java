@@ -32,12 +32,7 @@ public class User {
 
 	//constructor for offline user
 	public User(int id) {
-		try {
-			this.id = Integer.valueOf(id);
-		} catch (NumberFormatException e) {
-			throw new NumberFormatException();
-		}
-
+		this.id = Integer.valueOf(id);
 		this.outputStream = null;
 		followers = new HashSet<>();
 		usersIFollow = new HashSet<>();
@@ -50,6 +45,9 @@ public class User {
 	 * @param whoToFollow - User to follow
 	 *****************************************/
 	public void followAnotherUser(User whoToFollow){
+		if(whoToFollow == null)
+			throw new NullPointerException();
+
 		if(usersIFollow.contains(whoToFollow))
 			return;
 		usersIFollow.add(whoToFollow);
@@ -60,6 +58,9 @@ public class User {
 	 * @param followee - user wants to follow this user
 	 **************************************************/
 	public void followMe(User followee){
+		if(followee == null)
+			throw new NullPointerException();
+
 		if(followers.contains(followee))
 				return;
 		followers.add(followee);

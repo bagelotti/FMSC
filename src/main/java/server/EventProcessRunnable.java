@@ -15,6 +15,8 @@ public class EventProcessRunnable implements Runnable{
 	HashMap<Integer, User> connectedUsers;
 
 	public EventProcessRunnable(PriorityBlockingQueue queue, HashMap<Integer, User> connectedUsers) {
+		if(queue == null || connectedUsers == null)
+			throw new IllegalArgumentException("null params in event process runnable");
 		this.queue = queue;
 		this.connectedUsers = connectedUsers;
 		this.sequenceCounter = 1;
@@ -134,8 +136,8 @@ public class EventProcessRunnable implements Runnable{
 	public void run() {
 		Event event;
 		while(!foundLastEvent) {
-			if(!queue.isEmpty() && queue.peek().getSequenceNum() == sequenceCounter ||
-					queue.peek() instanceof ShutdownEvent) {
+			if(!queue.isEmpty() && (queue.peek().getSequenceNum() == sequenceCounter ||
+					queue.peek() instanceof ShutdownEvent)) {
 				event = queue.poll();
 				processEvent(event);
 				sequenceCounter++;

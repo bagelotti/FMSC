@@ -2,17 +2,16 @@ package EventTest;
 
 import event.BroadcastEvent;
 import event.Event;
-import event.FollowEvent;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-/**
- * Created by ... on 9/19/16.
- */
+/********************************************
+ * Test all functionality of Broadcast event
+ ********************************************/
 public class BroadcastEventTest {
-	String message = "1|533|600";
+	private String message = "1|533|600";
 
 	@Test
 	public void testCreation() {
@@ -25,6 +24,12 @@ public class BroadcastEventTest {
 	public void testUserParams() {
 		Event event = new BroadcastEvent("1", message);
 		assertEquals(event.getSequenceNum(), 1);
+	}
+
+	@Test
+	public void testGetMessage() {
+		Event event = new BroadcastEvent("1", message);
+		assertEquals(event.getMessage(), message);
 	}
 
 	@Test (expected = NumberFormatException.class)

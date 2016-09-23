@@ -1,8 +1,8 @@
 package event;
 
-/***********************
- * Follow Event
- ***********************/
+/*****************************************
+ * tests all functionality of Follow Event
+ *****************************************/
 public class FollowEvent implements Event, Comparable<Event> {
 	private final String type = "F";
 	private final int sequenceNum;

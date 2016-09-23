@@ -6,7 +6,6 @@ package event;
  **************************************************************************************/
 public class ShutdownEvent implements Event,Comparable<Event> {
 	private final String type = "X";
-
 	public ShutdownEvent(){}
 
 	@Override

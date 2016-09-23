@@ -1,7 +1,6 @@
 package EventTest;
 
 import event.Event;
-import event.FollowEvent;
 import event.StatusUpdateEvent;
 import org.junit.Test;
 
@@ -25,6 +24,12 @@ public class StatusUpdateEventTest {
 	public void testUserParams() {
 		Event event = new StatusUpdateEvent("1", "533", message);
 		assertEquals(event.getSequenceNum(), 1);
+	}
+
+	@Test
+	public void testGetMessage() {
+		Event event = new StatusUpdateEvent("1", "522",message);
+		assertEquals(event.getMessage(), message);
 	}
 
 	@Test (expected = NumberFormatException.class)

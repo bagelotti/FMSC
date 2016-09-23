@@ -1,7 +1,6 @@
 package EventTest;
 
 import event.Event;
-import event.FollowEvent;
 import event.PrivateMsgEvent;
 import org.junit.Test;
 
@@ -25,6 +24,12 @@ public class PrivateMsgEventTest {
 	public void testUserParams() {
 		Event event = new PrivateMsgEvent("1", "533", "600", message);
 		assertEquals(event.getSequenceNum(), 1);
+	}
+
+	@Test
+	public void testGetMessage() {
+		Event event = new PrivateMsgEvent("1", "522","600",message);
+		assertEquals(event.getMessage(), message);
 	}
 
 	@Test (expected = NumberFormatException.class)

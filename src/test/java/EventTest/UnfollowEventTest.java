@@ -26,6 +26,12 @@ public class UnfollowEventTest {
 		assertEquals(event.getSequenceNum(), 1);
 	}
 
+	@Test
+	public void testGetMessage() {
+		Event event = new UnfollowEvent("1", "522","600",message);
+		assertEquals(event.getMessage(), message);
+	}
+
 	@Test (expected = NumberFormatException.class)
 	public void testInvalidParams() {
 		Event event = new UnfollowEvent(null, "533", "600", message);

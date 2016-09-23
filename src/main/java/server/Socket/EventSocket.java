@@ -7,9 +7,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Arrays;
 import java.util.concurrent.PriorityBlockingQueue;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 /*******************************
  * Listens in on Event port
@@ -22,6 +20,8 @@ public class EventSocket implements Runnable {
 	private BufferedReader inputReader;
 	private PriorityBlockingQueue<Event> queue;
 	public EventSocket(PriorityBlockingQueue<Event> queue) {
+		if(queue == null)
+			throw new IllegalArgumentException("Empty queue passed into event socket");
 		this.queue = queue;
 	}
 
@@ -94,8 +94,10 @@ public class EventSocket implements Runnable {
 	 **********************************************************/
 	private void terminate() {
 		try {
-			inputReader.close();
-			client.close();
+			if(inputReader != null)
+				inputReader.close();
+			if(client != null)
+				client.close();
 			socket.close();
 			queue.put(new ShutdownEvent());
 		}catch (IOException ec ) {
