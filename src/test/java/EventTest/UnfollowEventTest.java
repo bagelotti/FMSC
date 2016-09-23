@@ -3,13 +3,12 @@ package EventTest;
 import event.Event;
 import event.UnfollowEvent;
 import org.junit.Test;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-/**
- * Created by ...on 9/19/16.
- */
+/*********************************
+ * unit tests of Unfollow Event
+ **********************************/
 public class UnfollowEventTest {
 	String message = "1|533|600";
 

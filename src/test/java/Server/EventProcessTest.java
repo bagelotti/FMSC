@@ -9,9 +9,8 @@ import server.EventProcessRunnable;
 import static org.junit.Assert.assertTrue;
 import java.util.HashMap;
 import java.util.concurrent.PriorityBlockingQueue;
-
-
 import static org.mockito.Mockito.*;
+
 /**
  * Tests basic construction, abnormalities and exceptions for the EventProcessRunnable class
  *	Uses a mock for a user to verify we reach the disconnect() method at termination
@@ -24,34 +23,26 @@ public class EventProcessTest {
 	@Mock
 	User user = mock(User.class);
 
-	/**
-	Test basic construction
-	 */
+
 	@Test
 	public void testConstruction() {
 		EventProcessRunnable runnable = new EventProcessRunnable(queue, userMap);
 		assertTrue(runnable instanceof EventProcessRunnable);
 	}
 
-	/**
-	 Test invalid construction w/ empty queue
-	 */
+	//Test invalid construction w/ empty queue
 	@Test(expected = IllegalArgumentException.class)
 	public void testInvalidParamsQueue() {
 		EventProcessRunnable runnable = new EventProcessRunnable(null, userMap);
 	}
 
-	/**
-	 Test invalid construction w/ empty hashmap
-	 */
+	//Test invalid construction w/ empty hashmap
 	@Test(expected = IllegalArgumentException.class)
 	public void testInvalidParamsHash() {
 		EventProcessRunnable runnable = new EventProcessRunnable(queue, null);
 	}
 
-	/********************************************
-	 * Test shutdown event, and disconnect users
-	 ********************************************/
+	// Test shutdown event, and disconnect users
 	@Test
 	public void testDisconnectReach() {
 		userMap.put(2, user);

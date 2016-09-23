@@ -13,7 +13,6 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 
 /******************************************************************
- * Created by ... on 9/22/16.
  * - uses mock testing to test some of the internals of the class
  ******************************************************************/
 public class ClientSocketTest {
@@ -41,9 +40,7 @@ public class ClientSocketTest {
 		ClientSocket clientSocket = new ClientSocket(null, new HashMap<>());
 	}
 
-	/**********************************************
-	 * make sure we catch the exception safely with a mock
-	 **********************************************/
+	 // make sure we catch the exception safely with a mock
 	@Test
 	public void testClientSocketException() throws IOException {
 		ClientSocket clientSocket = new ClientSocket(mockClient, new HashMap<Integer, User>());
@@ -51,10 +48,7 @@ public class ClientSocketTest {
 		clientSocket.run();
 	}
 
-	/******************************************
-	 * test closing of socket with a mock
-	 * @throws IOException
-	 ******************************************/
+	 // test closing of socket with a mock
 	@Test
 	public void testClientSocketInputReader() throws IOException {
 		ClientSocket clientSocket = new ClientSocket(mockClient, new HashMap<Integer, User>());

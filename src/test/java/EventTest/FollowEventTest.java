@@ -3,12 +3,12 @@ package EventTest;
 import event.Event;
 import event.FollowEvent;
 import org.junit.Test;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-/**
- * Created by ... on 9/19/16.
- */
+
+/****************************
+ * Unit tests of Follow Event
+ ****************************/
 public class FollowEventTest {
 	private String message = "1|533|600";
 

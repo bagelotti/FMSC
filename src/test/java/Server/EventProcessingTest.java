@@ -3,14 +3,11 @@ package Server;
 import User.User;
 import event.*;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Spy;
 import server.EventProcessRunnable;
-
 import java.util.HashMap;
 import java.util.concurrent.PriorityBlockingQueue;
-
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 
@@ -28,14 +25,14 @@ import static org.mockito.Mockito.*;
 public class EventProcessingTest {
 	private PriorityBlockingQueue<Event> queue;
 	private HashMap<Integer, User> userMap;
+
 	@Spy
 	private User follower;
 	@Spy
 	private User followee;
 
-	/**
-	 * common setup before each test
-	 */
+
+	// common setup before each test
 	@Before
 	public void setup() {
 		queue = new PriorityBlockingQueue<>();
@@ -46,9 +43,7 @@ public class EventProcessingTest {
 		userMap.put(followee.getId(), followee);
 	}
 
-	/**
-		Test follow event. Ensure the user's follow list is updated	and he is notified
-	 */
+	 //Test follow event. Ensure the user's follow list is updated	and he is notified
 	@Test
 	public void testFollowEventProcessing() {
 		FollowEvent event = setupFollowEvent();
@@ -61,9 +56,7 @@ public class EventProcessingTest {
 		verify(followee).notify(event.getMessage());
 	}
 
-	/**
-		Make sure a user who unfollowed another is removed from the followee's list of followers
-	 */
+	//Make sure a user who unfollowed another is removed from the followee's list of followers
 	@Test
 	public void testUnfollowEventProcessing() {
 		FollowEvent followEvent = setupFollowEvent();
@@ -77,9 +70,7 @@ public class EventProcessingTest {
 		assertTrue(followee.getFollowers().isEmpty());
 	}
 
-	/**
-	 * Ensures that the correct user is notified with the correct msg for Private Msg Events
-	 */
+	// Ensures that the correct user is notified with the correct msg for Private Msg Events
 	@Test
 	public void testPrivateMsgProcessing() {
 		String message = "1|P|1|10";
@@ -93,9 +84,7 @@ public class EventProcessingTest {
 		verify(followee).notify(privateMsgEvent.getMessage());
 	}
 
-	/**
-	 * Verify that all followers of an updating user are notified of a user's status update
-	 */
+	// Verify that all followers of an updating user are notified of a user's status update
 	@Test
 	public void testStatusUpdateProcessing() {
 		String message = "2|S|10";
@@ -112,9 +101,8 @@ public class EventProcessingTest {
 		verify(follower).notify(statusUpdateEvent.getMessage());
 	}
 
-	/**
-	 * Verify that all connected users are notified of a broadcast
-	 */
+
+	// Verify that all connected users are notified of a broadcast
 	@Test
 	public void testBroadcastProcessing() {
 		String message ="1|B|";

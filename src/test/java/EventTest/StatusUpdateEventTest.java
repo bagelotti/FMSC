@@ -3,13 +3,12 @@ package EventTest;
 import event.Event;
 import event.StatusUpdateEvent;
 import org.junit.Test;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-/**
- * Created by ... on 9/19/16.
- */
+/****************************************
+ * Tests all units of Status Update event
+ ****************************************/
 public class StatusUpdateEventTest {
 	String message = "1|533|600";
 

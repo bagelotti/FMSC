@@ -9,9 +9,10 @@ import java.util.concurrent.PriorityBlockingQueue;
 
 
 import static org.mockito.Mockito.*;
-/**
- * Created by ... on 9/22/16.
- */
+/*******************************************************************************
+ * Unit tests of Event Socket. Will run until the duration of a time, and verify
+ * that we safely terminate and add a Shutdown event
+ ******************************************************************************/
 public class EventSocketTest {
 	@Mock
 	PriorityBlockingQueue<Event> queue = mock(PriorityBlockingQueue.class);
@@ -29,6 +30,7 @@ public class EventSocketTest {
 	public void testEventSocketException() {
 		EventSocket eventSocket = new EventSocket(queue);
 		eventSocket.run();
+
 		verify(queue,times(1)).put(any(ShutdownEvent.class));
 	}
 

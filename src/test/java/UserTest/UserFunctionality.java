@@ -1,16 +1,13 @@
 package UserTest;
 
 import User.User;
-import junitparams.Parameters;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import java.io.OutputStream;
 
-/**
- * Created by ... on 9/22/16.
- */
+/********************************
+ * User functionality unit tests
+ ********************************/
 public class UserFunctionality {
 	User user;
 	User testFollowUser;
@@ -54,6 +51,7 @@ public class UserFunctionality {
 		assertEquals(user.getFollowers().size(),0);
 	}
 
+	//test illegal arguments
 	@Test(expected = NullPointerException.class)
 	public void testFollowNullExceptions() {
 		user.followAnotherUser(null);

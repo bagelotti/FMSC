@@ -12,9 +12,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 
-/**
- * Created by ... on 9/20/16.
- */
+/********************
+ * User unit tests
+ ************************/
 @RunWith(JUnitParamsRunner.class)
 public class UserTest {
 	OutputStream mockedOutputStream = mock(OutputStream.class);

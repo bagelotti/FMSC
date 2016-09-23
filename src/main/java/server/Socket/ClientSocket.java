@@ -51,7 +51,6 @@ public class ClientSocket implements Runnable{
 			}
 
 		} catch (IOException e) {
-		} finally {
 			if(inputReader != null)
 				try {
 					inputReader.close();

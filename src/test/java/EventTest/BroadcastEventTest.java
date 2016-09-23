@@ -8,7 +8,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /********************************************
- * Test all functionality of Broadcast event
+ * Test all units of Broadcast event
  ********************************************/
 public class BroadcastEventTest {
 	private String message = "1|533|600";
