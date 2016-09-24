@@ -1,17 +1,17 @@
 package SocketTest;
 
-import event.Event;
-import event.ShutdownEvent;
+import Event.Event;
+import Event.ShutdownEvent;
 import org.junit.Test;
 import org.mockito.Mock;
-import server.Socket.EventSocket;
+import Server.Socket.EventSocket;
 import java.util.concurrent.PriorityBlockingQueue;
 
 
 import static org.mockito.Mockito.*;
 /*******************************************************************************
  * Unit tests of Event Socket. Will run until the duration of a time, and verify
- * that we safely terminate and add a Shutdown event
+ * that we safely terminate and add a Shutdown Event
  ******************************************************************************/
 public class EventSocketTest {
 	@Mock

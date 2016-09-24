@@ -3,7 +3,7 @@ package SocketTest;
 import User.User;
 import org.junit.Test;
 import org.mockito.Mock;
-import server.Socket.ClientSocket;
+import Server.Socket.ClientSocket;
 
 import java.io.IOException;
 import java.io.InputStream;

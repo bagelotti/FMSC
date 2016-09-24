@@ -1,11 +1,11 @@
 package Server;
 
 import User.User;
-import event.Event;
-import event.ShutdownEvent;
+import Event.Event;
+import Event.ShutdownEvent;
 import org.junit.Test;
 import org.mockito.Mock;
-import server.EventProcessRunnable;
+
 import static org.junit.Assert.assertTrue;
 import java.util.HashMap;
 import java.util.concurrent.PriorityBlockingQueue;
@@ -42,7 +42,7 @@ public class EventProcessTest {
 		EventProcessRunnable runnable = new EventProcessRunnable(queue, null);
 	}
 
-	// Test shutdown event, and disconnect users
+	// Test shutdown Event, and disconnect users
 	@Test
 	public void testDisconnectReach() {
 		userMap.put(2, user);

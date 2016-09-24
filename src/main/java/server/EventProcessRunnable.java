@@ -14,7 +14,8 @@ public class EventProcessRunnable implements Runnable{
 	private boolean foundLastEvent;
 	HashMap<Integer, User> connectedUsers;
 
-	public EventProcessRunnable(PriorityBlockingQueue queue, HashMap<Integer, User> connectedUsers) {
+
+	public EventProcessRunnable(PriorityBlockingQueue<Event> queue, HashMap<Integer, User> connectedUsers) {
 		if(queue == null || connectedUsers == null)
 			throw new IllegalArgumentException("null params in Event process runnable");
 		this.queue = queue;

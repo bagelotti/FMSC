@@ -1,13 +1,13 @@
 package EventTest;
 
-import event.Event;
-import event.PrivateMsgEvent;
+import Event.Event;
+import Event.PrivateMsgEvent;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**************************************
- * Tests all units of Private msg event
+ * Tests all units of Private msg Event
  ***************************************/
 public class PrivateMsgEventTest {
 	String message = "1|533|600";

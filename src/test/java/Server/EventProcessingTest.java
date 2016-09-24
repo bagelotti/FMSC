@@ -1,11 +1,11 @@
 package Server;
 
 import User.User;
-import event.*;
+import Event.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Spy;
-import server.EventProcessRunnable;
+
 import java.util.HashMap;
 import java.util.concurrent.PriorityBlockingQueue;
 import static org.junit.Assert.assertTrue;
@@ -16,10 +16,10 @@ import static org.mockito.Mockito.*;
  * Tests all processing events using mocks and spiesto verify correct calls
  * Mockito and JUnit are used together for these tests
  *
- * Each event is simulated and affected users are spied
- * so we can check they're correctly notified of the event
+ * Each Event is simulated and affected users are spied
+ * so we can check they're correctly notified of the Event
  *
- * each test has a terminating shutdown event to end the queue
+ * each test has a terminating shutdown Event to end the queue
  * processing
  ****************************************/
 public class EventProcessingTest {
@@ -43,7 +43,7 @@ public class EventProcessingTest {
 		userMap.put(followee.getId(), followee);
 	}
 
-	 //Test follow event. Ensure the user's follow list is updated	and he is notified
+	 //Test follow Event. Ensure the user's follow list is updated	and he is notified
 	@Test
 	public void testFollowEventProcessing() {
 		FollowEvent event = setupFollowEvent();
@@ -129,7 +129,7 @@ public class EventProcessingTest {
 	}
 
 	/**
-	 * Unfollow event: only called after a follow event, so sequence num is 2
+	 * Unfollow Event: only called after a follow Event, so sequence num is 2
 	 * @return UnfollowEvent
 	 */
 	private UnfollowEvent setupUnfollowEvent() {

@@ -1,14 +1,14 @@
 package EventTest;
 
-import event.BroadcastEvent;
-import event.Event;
+import Event.BroadcastEvent;
+import Event.Event;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /********************************************
- * Test all units of Broadcast event
+ * Test all units of Broadcast Event
  ********************************************/
 public class BroadcastEventTest {
 	private String message = "1|533|600";

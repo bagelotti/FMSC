@@ -1,7 +1,7 @@
 package EventTest;
 
-import event.Event;
-import event.UnfollowEvent;
+import Event.Event;
+import Event.UnfollowEvent;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
