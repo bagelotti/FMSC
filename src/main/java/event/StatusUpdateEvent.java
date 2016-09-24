@@ -1,4 +1,4 @@
-package event;
+package Event;
 
 /************************
  * Status Update Event

@@ -1,4 +1,4 @@
-package event;
+package Event;
 
 /*****************************************
  * tests all functionality of Follow Event

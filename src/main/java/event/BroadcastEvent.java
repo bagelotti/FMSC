@@ -1,7 +1,7 @@
-package event;
+package Event;
 
 /******************
- * Broadcast event
+ * Broadcast Event
  *******************/
 
 public class BroadcastEvent implements Event, Comparable<Event>{

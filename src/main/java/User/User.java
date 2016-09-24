@@ -67,7 +67,7 @@ public class User {
 	}
 
 	/*********************************************
-	 * Unfollow event, when someone wants to unfollow
+	 * Unfollow Event, when someone wants to unfollow
 	 * this user
 	 * @param unfollower - User who wants to unfollow
 	 *********************************************/
@@ -94,7 +94,7 @@ public class User {
 	}
 
 	/**************************************
-	 * Publish an event to a user
+	 * Publish an Event to a user
 	 * @param message - message to send
 	 **************************************/
 	public void notify(String message){

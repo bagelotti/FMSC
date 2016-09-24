@@ -1,9 +1,9 @@
-package server;
+package Server;
 
 import User.User;
-import event.Event;
-import server.Socket.ClientSocket;
-import server.Socket.EventSocket;
+import Event.Event;
+import Server.Socket.ClientSocket;
+import Server.Socket.EventSocket;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;

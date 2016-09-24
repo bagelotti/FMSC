@@ -1,13 +1,15 @@
-package main;
+package Main;
 
-import server.Server;
+import Server.Server;
 
 /********************************
- * Main method. Runs the server
+ * Main method. Runs the Server
  ********************************/
 public class main {
 	public static void main(String[] args) {
+		System.out.println("running");
 		Server server = new Server();
 		server.start();
+		System.out.println("done");
 	}
 }

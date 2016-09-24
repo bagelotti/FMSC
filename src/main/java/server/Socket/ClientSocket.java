@@ -1,4 +1,4 @@
-package server.Socket;
+package Server.Socket;
 
 import User.User;
 
@@ -30,7 +30,7 @@ public class ClientSocket implements Runnable{
 	 * adds users into our connected users hash
 	 * as they're coming in
 	 * - if a user is already in the hash, then
-	 *	he was an offline user ( a user that had an event related to him, but was offline i.e followEvent)
+	 *	he was an offline user ( a user that had an Event related to him, but was offline i.e followEvent)
 	 * 	and we add the outputstream to the user, to make them online
 	 *****************************************************************/
 	@Override

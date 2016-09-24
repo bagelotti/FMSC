@@ -1,4 +1,4 @@
-package event;
+package Event;
 
 /************************
  * Private Message Event

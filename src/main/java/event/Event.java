@@ -1,4 +1,4 @@
-package event;
+package Event;
 
 /*******************************************
  * Interface that defines our Event classes

@@ -1,6 +1,6 @@
-package server.Socket;
+package Server.Socket;
 
-import event.*;
+import Event.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -21,14 +21,14 @@ public class EventSocket implements Runnable {
 	private PriorityBlockingQueue<Event> queue;
 	public EventSocket(PriorityBlockingQueue<Event> queue) {
 		if(queue == null)
-			throw new IllegalArgumentException("Empty queue passed into event socket");
+			throw new IllegalArgumentException("Empty queue passed into Event socket");
 		this.queue = queue;
 	}
 
 
 	/***********************************************
-	 * - takes in stream from event port
-	 * - parses each line into a new event
+	 * - takes in stream from Event port
+	 * - parses each line into a new Event
 	 * - enqueue's into priority queue
 	 * - priority is based on sequence num.
 	 *     Smaller sequence numbers get pushed up the queue
@@ -59,7 +59,7 @@ public class EventSocket implements Runnable {
 	}
 
 	/*************************************************
-	 * Parses incoming payload string into an event
+	 * Parses incoming payload string into an Event
 	 * @param payload - Incoming string array parsed from request
 	 * @param message - original message from request
 	 * @return - Event object to enqueue
@@ -84,13 +84,13 @@ public class EventSocket implements Runnable {
 			case "S":
 				return new StatusUpdateEvent(payload[0],payload[2], message);
 			default:
-				throw new IllegalArgumentException("invalid event type");
+				throw new IllegalArgumentException("invalid Event type");
 		}
 	}
 
 	/**********************************************************
 	 * Safely shutsdown our sockets, and
-	 * adds the terminate event into queue (poison pill pattern)
+	 * adds the terminate Event into queue (poison pill pattern)
 	 **********************************************************/
 	private void terminate() {
 		try {

@@ -1,12 +1,12 @@
-package server;
+package Server;
 
 import User.User;
-import event.*;
+import Event.*;
 import java.util.HashMap;
 import java.util.concurrent.PriorityBlockingQueue;
 /****************************************************************
- * Runnable that works as a consumer for event queue
- * processes the event, and sends it to the appropriate user(s)
+ * Runnable that works as a consumer for Event queue
+ * processes the Event, and sends it to the appropriate user(s)
  ****************************************************************/
 public class EventProcessRunnable implements Runnable{
 	private PriorityBlockingQueue<Event> queue;
@@ -16,7 +16,7 @@ public class EventProcessRunnable implements Runnable{
 
 	public EventProcessRunnable(PriorityBlockingQueue queue, HashMap<Integer, User> connectedUsers) {
 		if(queue == null || connectedUsers == null)
-			throw new IllegalArgumentException("null params in event process runnable");
+			throw new IllegalArgumentException("null params in Event process runnable");
 		this.queue = queue;
 		this.connectedUsers = connectedUsers;
 		this.sequenceCounter = 1;
@@ -24,8 +24,8 @@ public class EventProcessRunnable implements Runnable{
 	}
 
 	/***********************************************
-	 * sends incoming event to process by its type
-	 * @param event - next event to send out
+	 * sends incoming Event to process by its type
+	 * @param event - next Event to send out
 	 ***********************************************/
 	private void processEvent(Event event) {
 		switch(event.getEventType()) {
@@ -49,7 +49,7 @@ public class EventProcessRunnable implements Runnable{
 				break;
 
 			case "X":
-				// Poison pill event, signal that we've reached all events and should terminate
+				// Poison pill Event, signal that we've reached all events and should terminate
 				foundLastEvent = true;
 				break;
 			default:
@@ -58,8 +58,8 @@ public class EventProcessRunnable implements Runnable{
 	}
 
 	/********************************************
-	 * Processes follow event
-	 * @param event - Follow event
+	 * Processes follow Event
+	 * @param event - Follow Event
 	 ********************************************/
 	private void processFollow(FollowEvent event) {
 		User followee = getUser(event.getFromUser());
@@ -70,8 +70,8 @@ public class EventProcessRunnable implements Runnable{
 	}
 
 	/********************************************
-	 * Processes unfollow event
-	 * @param event - Unfollow event
+	 * Processes unfollow Event
+	 * @param event - Unfollow Event
 	 ********************************************/
 	private void processUnfollow(UnfollowEvent event) {
 		User followee = getUser(event.getFromUser());
@@ -80,8 +80,8 @@ public class EventProcessRunnable implements Runnable{
 	}
 
 	/********************************************
-	 * Processes broadcast event
-	 * @param event - Broadcast event
+	 * Processes broadcast Event
+	 * @param event - Broadcast Event
 	 ********************************************/
 	private void processBroadcast(BroadcastEvent event) {
 		for(User user : connectedUsers.values()) {
@@ -90,8 +90,8 @@ public class EventProcessRunnable implements Runnable{
 	}
 
 	/********************************************
-	 * Processes private message event
-	 * @param event - Private Message event
+	 * Processes private message Event
+	 * @param event - Private Message Event
 	 ********************************************/
 	private void processPrivateMsg(PrivateMsgEvent event) {
 		User whoToFollow = getUser(event.getToUser());
@@ -99,8 +99,8 @@ public class EventProcessRunnable implements Runnable{
 	}
 
 	/********************************************
-	 * Processes status update event
-	 * @param event - StatusUpdate event
+	 * Processes status update Event
+	 * @param event - StatusUpdate Event
 	 ********************************************/
 	private void processStatusUpdate(StatusUpdateEvent event) {
 		User updatedUser = getUser(event.getFromUser());
@@ -111,7 +111,7 @@ public class EventProcessRunnable implements Runnable{
 
 	/********************************************
 	 * returns a user that is currently connected
-	 * creates an "offline" user if we receive an event
+	 * creates an "offline" user if we receive an Event
 	 * that effects a user that is currently not connected.
 	 * We need offline users to store followers and other relative info
 	 * @param userID - ID of user
@@ -127,9 +127,9 @@ public class EventProcessRunnable implements Runnable{
 
 	/******************************************
 	 * Main method of Runnable
-	 * - pops off root of event queue when the next ordered event is at the root
-	 * - will wait if root element is not the next event to be processed
-	 * - when last event is found (terminating event) and processed, we prepare to shut down the service,
+	 * - pops off root of Event queue when the next ordered Event is at the root
+	 * - will wait if root element is not the next Event to be processed
+	 * - when last Event is found (terminating Event) and processed, we prepare to shut down the service,
 	 * 		and disconnect the users
 	 ******************************************/
 	@Override
@@ -144,6 +144,7 @@ public class EventProcessRunnable implements Runnable{
 			}
 
 		}
+
 		//all events are processed, disconnect user connections
 		for(User user : connectedUsers.values()) {
 			user.disconnect();
