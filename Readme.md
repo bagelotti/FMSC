@@ -1,7 +1,7 @@
 #FMSC Server
 
 ###Overview
-This server services all incoming events using multithreaded environment. It was developed in Java (compiled in Java 8) and uses ExecutorService to manage our thread pool. The idea was to seperate the request handlers for events and the incoming clients, and have another independent thread process the events are ready to be published. 
+This server services all incoming events using multithreaded environment. It was developed in Java (compiled in Java 8) and uses ExecutorService to manage our thread pool. The idea was to seperate the request handlers for events and the incoming clients, and have another independent thread process the events that are ready to be published. 
 
 Once the server starts, it will listen in for events and incoming clients. The event processing thread will start looking for event with sequence number 1 at the head of the queue. The event process worker will process all events in order by sequence number. 
 
@@ -17,15 +17,15 @@ The design was developed as follows:
 
 One thread is used only for receving the stream of Events, and enqueueing the events into a priority queue. The priority queue uses the sequence numbers of the incoming events as the priority, which means that the minimum sequence number goes to the head of the queue.
 
-The second thread handles all of the events that are ready to be processed in the queue. That is, if the next sequnce number to process is at the head of the queue, we dequeue it and process it. This thread also contains synchronized hashtable of users to publish the events to the proper output stream.
+The second thread handles all of the events that are ready to be processed in the queue. That is, if the next sequnce number to process is at the head of the queue, we dequeue it and process it. This thread also contains a synchronized hashtable of users to publish the events to the proper user with their output stream.
 
 The remaining threads are used to connect the incoming clients as fast as possible. 
 
-**Event/**: contains the different classes and interface of an Event. The classes are seperated to construct individual objects of them, since they do not share the same parameters. Within this, there is a special event called the ShutdownEvent, which is used to notify the event processing worker that all events are complete.
+**Event/**: contains the different classes and interface of an Event. The classes are seperated to construct individual objects of them, since they do not share the same parameters. Within this package, there is a special event called the ShutdownEvent, which is used to notify the event processing worker that all events are complete.
 
-**User/**: represents an incoming user. A user can be an offline user or an online user. An offline user is created when an event related to them has happened but they're not connected. I figured we need to keep track of who follows these users even if they're offline. These users can become 'online users' once they connect through the client port and we can store their connection in the User class.
+**User/**: represents an incoming user. A user can be an offline user or an online user. An offline user is created when an event related to them has happened but they're not connected. I figured we need to keep track of who follows these users even if they're offline. These users can go 'online' once they connect through the client port and we can store their connection in the User class.
 
-**test/**: contains all of our unit tests
+**test/**: contains all of our tests
 
 
 
@@ -46,7 +46,9 @@ $ running
 
 
 ####Recommended: run using Maven (or for unit tests):
-Although running the server in the terminal manually using javac is perfectly fine, I recommend using Maven (if you have it installed) only for the reason of the test scripts executing correctly. 
+Although running the server in the terminal the way its mentioned above is perfectly fine, I recommend using Maven (if you have it installed) only for the reason of the test scripts executing correctly. 
+
+Using Maven:
 
 ```
 $ cd FMSC/
@@ -75,11 +77,14 @@ $ java -cp target/Follower-Server-1.0-SNAPSHOT.jar Main/main
 $ running
 ```
 
+#### Tests
+All of the unit tests used JUnit. I tried to test each component in isolation. Aside from unit tests, I used mocks and spies to check for verification that internal methods were being called correctly. I used Mockito to supply me with the mocking and spy modules. You can find heavy use of this in EventProcessingTest, and in a few other of the test classes.
 
-##### Additional tests
+#### Additional tests
 I ran additional tests outside of the unit tests to check for performance issues. I ran mulitple settings of the parameters from the .sh file, and I also profiled each of the components timing. For example, every few seconds, I monitored the queue size to look for any bottlenecks. I found that the majority of the time the queue size was relatively low, or empty. I also checked to make sure clients connected as fast possible. The only bottleneck I found was the incoming events stream. I tried mulitple ways to enqueue the events as fast possible, but didnt find any significant performance difference between them and the current implementation. 
+
 #### Notes and Concerns
-All of the test files will most likely not run correctly outside of a maven environment since I used maven to handle my dependencies for testing which include JUnit, Mockito, JUnitParams, and Hamcrest. The server itself should not be affected whether you use Maven or not since it doesn't have any dependencies outside of the java library. 
+All of the test files will most likely not run correctly outside of a maven environment since I used maven to handle my dependencies for testing which include JUnit, Mockito, JUnitParams, and Hamcrest. The server itself should not be affected whether you use Maven or not since it doesn't have any dependencies outside of the java 8 library. 
 
 - The server was compiled using the latest version of Java (java 8)
 - I had a lot of fun doing this coding assignment. This was definitely one of the more enjoyable ones that I've completed.
